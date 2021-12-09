@@ -10,18 +10,21 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(renderer.domElement);
 
-const geometry = new THREE.BoxGeometry(10,0.1,10);
-const material = new THREE.MeshBasicMaterial({color:0x00FF00});
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+const geometry = new THREE.BoxGeometry(10,0.2,10);
+const grasstexture = new THREE.TextureLoader().load('textures/grassTexture.jpg');
+var material = new THREE.MeshBasicMaterial({map: grasstexture});
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
-camera.position.z = 5;
+camera.position.set(5,5,5);
+controls.update();
 
 function animate(){
     requestAnimationFrame(animate);
 
-    cube.rotation.x += 0.001;
-    cube.rotation.y += 0.001;
+    controls.update()
 
     renderer.render(scene, camera);
 
