@@ -33,7 +33,7 @@ class ThrustParticleSystem{
 
 
     createNew(){
-        this.SetInitialParticlesPosAndVel(this.pos);
+        this.SetInitialParticlesPosAndVel(this.thrustOf.position);  //the thrust system will follow the object it belongs to.
     }
 
     update(){
@@ -41,7 +41,7 @@ class ThrustParticleSystem{
         // for()//might need to update the list containing the particles before actually tranformng them? 
         for(let x = 0; x < this.thrustParticles.length; x++){
             if(this.thrustParticles[x].lifetime > this.thrustParticles[x].lifelived.getElapsedTime()){
-                this.thrustParticles[x].translateY(0.1);                
+                this.thrustParticles[x].translateY(-0.1);                
             }
             else{
                 this.scene.remove(this.thrustParticles[x]); //remove the particle from the scene 
@@ -84,7 +84,7 @@ geometry = new THREE.CylinderGeometry(0, 0.5, 0.5, 7, 1);
 material = new THREE.MeshNormalMaterial();
 var rocket = new THREE.Mesh(geometry, material);    //a "rocket"
 
-var thrustsys = new ThrustParticleSystem(scene, rocket, 1000, 5, new THREE.Vector3(0,0,0)); //particle system, thrust
+var thrustsys = new ThrustParticleSystem(scene, rocket, 1000, 1, new THREE.Vector3(0,0,0)); //particle system, thrust
 
 scene.add(rocket);
 
@@ -103,7 +103,7 @@ function animate(){
 
     controls.update()   //updating orbital controls
 
-    if (rocket.position.y > 5){
+    if (rocket.position.y > 500){
         scene.remove(rocket);   //removing rocket from scene after some distance
     }
 
